@@ -18,13 +18,13 @@ class SnsBroadcastServiceProvider extends ServiceProvider
                 function ($app, $config) {
                     $parameters = [
                         'version' => 'latest',
-                        'region' => $config['aws_region'],
+                        'region' => $config['region'],
                     ];
 
                     if ($this->hasAWSEnvConfigured() === false) {
                         $parameters['credentials'] = [
-                            'key' => $config['aws_key'],
-                            'secret' => $config['aws_secret'],
+                            'key' => $config['key'],
+                            'secret' => $config['secret'],
                         ];
                     }
 
