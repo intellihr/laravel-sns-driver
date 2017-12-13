@@ -4,6 +4,7 @@ namespace Ringtrail\LaravelSns;
 
 use Aws\Sns\SnsClient;
 use Illuminate\Broadcasting\BroadcastManager;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Support\ServiceProvider;
 
 class SnsBroadcastServiceProvider extends ServiceProvider
@@ -28,7 +29,12 @@ class SnsBroadcastServiceProvider extends ServiceProvider
                         ];
                     }
 
-                    return new SnsBroadcaster(SnsClient::factory($parameters));
+                    $config = $this->app->make(Repository::class);
+
+                    return new SnsBroadcaster(
+                        SnsClient::factory($parameters),
+                        $config
+                    );
                 }
             );
     }
