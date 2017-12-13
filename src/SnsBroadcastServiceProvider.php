@@ -22,7 +22,7 @@ class SnsBroadcastServiceProvider extends ServiceProvider
                         'region' => $config['region'],
                     ];
 
-                    if ($this->hasAWSEnvConfigured() === false) {
+                    if ($this->hasKeyAndSecret($config)) {
                         $parameters['credentials'] = [
                             'key' => $config['key'],
                             'secret' => $config['secret'],
@@ -43,12 +43,8 @@ class SnsBroadcastServiceProvider extends ServiceProvider
     {
     }
 
-    private function hasAWSEnvConfigured()
+    private function hasKeyAndSecret(array $config)
     {
-        if (getenv('AWS_ACCESS_KEY_ID') !== false && getenv('AWS_SECRET_ACCESS_KEY') !== false) {
-            return true;
-        }
-
-        return getenv('AWS_SESSION_TOKEN') !== false;
+        return array_key_exists('key', $config) && array_key_exists('secret', $config);
     }
 }
