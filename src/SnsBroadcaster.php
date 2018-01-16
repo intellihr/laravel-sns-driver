@@ -28,11 +28,7 @@ class SnsBroadcaster implements Broadcaster
 
     public function broadcast(array $channels, $event, array $payload = [])
     {
-        $payload = [
-            'event' => $event,
-            'data' => $payload,
-            'tenant' => $this->config->get('lapis.tenant', ''),
-        ];
+        $payload['tenant'] = $this->config->get('lapis.tenant', '');
 
         foreach ($channels as $channel) {
             $this
